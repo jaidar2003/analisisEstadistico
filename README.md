@@ -1,6 +1,6 @@
-# ESTADISTICA APLICADA II
-## PAD
-## Integrantes
+# Universidad de Mendoza
+## Ingenieria en Informatica  
+### ESTADISTICA APLICADA II
 
 Juan Manuel Aidar
 
