@@ -10,7 +10,7 @@ class AnalisisEstadistico:
     def cargar_datos(self):
         if os.path.exists(self.archivo_excel):
             try:
-                self.df = pd.read_excel(self.archivo_excel, engine='openpyxl')
+                self.df = pd.read_excel(self.archivo_excel, engine='xlrd')
             except Exception as e:
                 print(f"Error al cargar el archivo: {e}")
         else:
