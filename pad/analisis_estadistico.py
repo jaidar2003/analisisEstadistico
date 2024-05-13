@@ -1,4 +1,5 @@
 import pandas as pd
+import scipy.stats as stats
 
 class AnalisisEstadistico:
     def __init__(self, archivo_excel):
