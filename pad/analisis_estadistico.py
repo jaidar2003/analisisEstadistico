@@ -8,10 +8,14 @@ class AnalisisEstadistico:
         self.df = None
 
     def cargar_datos(self):
-        try:
-            self.df = pd.read_excel(self.archivo_excel)
-        except FileNotFoundError:
+        if os.path.exists(self.archivo_excel):
+            try:
+                self.df = pd.read_excel(self.archivo_excel, engine='openpyxl')
+            except Exception as e:
+                print(f"Error al cargar el archivo: {e}")
+        else:
             print(f"No se encontró el archivo: {self.archivo_excel}")
+
 
     def mostrar_datos(self):
         if self.df is not None:
@@ -73,6 +77,7 @@ class AnalisisEstadistico:
                 print("Al menos una de las columnas especificadas no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
+
 # Path: pad/main.py
 # Compare this snippet from pad/analisis_estadistico.py:
 # import os
