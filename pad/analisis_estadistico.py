@@ -3,19 +3,20 @@ import pandas as pd
 import scipy.stats as stats
 
 class AnalisisEstadistico:
-    def __init__(self, archivo_excel):
-        self.archivo_excel = archivo_excel
+    def __init__(self, archivo_csv):
+        self.archivo_csv = archivo_csv
         self.df = None
 
     def cargar_datos(self):
-        if os.path.exists(self.archivo_excel):
+        if os.path.exists(
+                self.archivo_csv):  # Reemplaza self.archivo_excel con tu variable que contiene la ruta del archivo CSV
             try:
-                self.df = pd.read_excel(self.archivo_excel, engine='xlrd')
+                self.df = pd.read_csv(self.archivo_csv)  # Usa pd.read_csv para leer el archivo CSV
             except Exception as e:
-                print(f"Error al cargar el archivo: {e}")
+                print(f"Error al cargar el archivo CSV: {e}")
         else:
-            print(f"No se encontró el archivo: {self.archivo_excel}")
-
+            print(
+                f"No se encontró el archivo CSV: {self.archivo_csv}")  # Ajusta el mensaje para indicar que es un archivo CSV
 
     def mostrar_datos(self):
         if self.df is not None:
