@@ -79,6 +79,9 @@ class AnalisisEstadistico:
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
+
+
+
 # Path: pad/main.py
 # Compare this snippet from pad/analisis_estadistico.py:
 # import os
