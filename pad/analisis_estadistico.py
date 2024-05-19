@@ -9,14 +9,13 @@ class AnalisisEstadistico:
 
     def cargar_datos(self):
         if os.path.exists(
-                self.archivo_csv):  # Reemplaza self.archivo_excel con tu variable que contiene la ruta del archivo CSV
+                self.archivo_csv):
             try:
-                self.df = pd.read_csv(self.archivo_csv)  # Usa pd.read_csv para leer el archivo CSV
+                self.df = pd.read_csv(self.archivo_csv)
             except Exception as e:
                 print(f"Error al cargar el archivo CSV: {e}")
         else:
-            print(
-                f"No se encontró el archivo CSV: {self.archivo_csv}")  # Ajusta el mensaje para indicar que es un archivo CSV
+            print(f"No se encontró el archivo CSV: {self.archivo_csv}")
 
     def mostrar_datos(self):
         if self.df is not None:
@@ -58,29 +57,4 @@ class AnalisisEstadistico:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
-
-    def correlacion_pearson(self, columna1, columna2):
-        if self.df is not None:
-            if columna1 in self.df.columns and columna2 in self.df.columns:
-                correlacion = self.df[columna1].corr(self.df[columna2])
-                print(f"Coeficiente de correlación de Pearson entre '{columna1}' y '{columna2}':", correlacion)
-            else:
-                print("Al menos una de las columnas especificadas no existe en el DataFrame.")
-        else:
-            print("Primero carga los datos usando el método cargar_datos().")
-    
-    def correlacion_spearman(self, columna1, columna2):
-        if self.df is not None:
-            if columna1 in self.df.columns and columna2 in self.df.columns:
-                correlacion = self.df[columna1].corr(self.df[columna2], method="spearman")
-                print(f"Coeficiente de correlación de Spearman entre '{columna1}' y '{columna2}':", correlacion)
-            else:
-                print("Al menos una de las columnas especificadas no existe en el DataFrame.")
-        else:
-            print("Primero carga los datos usando el método cargar_datos().")
-
-# Path: pad/main.py
-# Compare this snippet from pad/analisis_estadistico.py:
-# import os
-
 
