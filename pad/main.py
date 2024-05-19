@@ -27,5 +27,9 @@ def mostrar_resultados(analisis):
     print("\nEstadísticas de la columna 'columna1':")
     analisis.estadisticas_columna("columna1")
 
+    print("\nANOVA:")
+    analisis.anova("altura", "grupo")
+
+
 if __name__ == "__main__":
     main()
