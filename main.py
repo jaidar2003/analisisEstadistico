@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from analisis_estadistico import AnalisisEstadistico
+from pad.analisis_estadistico import AnalisisEstadistico
 
 def main():
     load_dotenv()
