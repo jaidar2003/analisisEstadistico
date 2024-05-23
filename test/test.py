@@ -65,5 +65,38 @@ class TestAnalisisEstadistico(unittest.TestCase):
             self.assertIn("Estadística de prueba:", output)
             self.assertIn("Valor p:", output)
 
+    # def test_prueba_hipotesis_media(self):
+    #     # Load data first
+    #     self.analisis.cargar_datos()
+    #
+    #     # Configura datos de prueba con media conocida
+    #     data = {"columna1": [1, 2, 3, 4, 5]}
+    #     df_prueba = pd.DataFrame(data)
+    #     media_conocida = 3.0
+    #
+    #     # Llama al método y verifica la salida
+    #     with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+    #         self.analisis.prueba_hipotesis_media("columna1", media_conocida)
+    #         output = mock_stdout.getvalue()
+    #         self.assertIn("Prueba de hipótesis para la media de 'columna1'", output)
+    #         self.assertIn("Valor de la media poblacional: 3.0", output)
+    #
+    # def test_prueba_bondad_ajuste_normal(self):
+    #     # Load data first
+    #     self.analisis.cargar_datos()
+    #
+    #     # Configura datos de prueba que no siguen una distribución normal
+    #     data_no_normal = {"columna1": [1, 2, 3, 4, 5]}
+    #     df_no_normal = pd.DataFrame(data_no_normal)
+    #
+    #     # Llama al método y verifica la salida
+    #     with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+    #         self.analisis.prueba_bondad_ajuste_normal("columna1")
+    #         output = mock_stdout.getvalue()
+    #         self.assertIn("Prueba de bondad de ajuste para la normalidad en 'columna1'", output)
+    #         self.assertIn("Se rechaza la hipótesis nula", output)
+
+
+
 if __name__ == "__main__":
     unittest.main()
