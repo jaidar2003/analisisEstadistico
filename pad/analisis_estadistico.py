@@ -82,8 +82,4 @@ class AnalisisEstadistico:
 
 
 
-# Path: pad/main.py
-# Compare this snippet from pad/analisis_estadistico.py:
-# import os
-
 
