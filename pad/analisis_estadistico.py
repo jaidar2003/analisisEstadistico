@@ -22,7 +22,7 @@ class AnalisisEstadistico:
         if self.df is not None:
             print(self.df.head())
         else:
-            print(None)
+            print("Primero carga los datos usando el método cargar_datos().")
 
     def resumen_estadistico(self):
         if self.df is not None:
