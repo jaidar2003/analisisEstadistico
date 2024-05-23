@@ -43,6 +43,12 @@ class AnalisisEstadistico:
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
+    def resumen_estadistico_para_grupo(self, grupo):
+        if grupo is not None:
+            print(grupo.describe())
+        else:
+            print("El grupo proporcionado es nulo.")
+
     def prueba_normalidad(self, columna):
         if self.df is not None:
             if columna in self.df.columns:
