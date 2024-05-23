@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import scipy.stats as stats
 
+
 class AnalisisEstadistico:
     def __init__(self, archivo_csv):
         self.archivo_csv = archivo_csv
@@ -9,14 +10,14 @@ class AnalisisEstadistico:
 
     def cargar_datos(self):
         if os.path.exists(
-                self.archivo_csv):  # Reemplaza self.archivo_excel con tu variable que contiene la ruta del archivo CSV
+                self.archivo_csv):
             try:
-                self.df = pd.read_csv(self.archivo_csv)  # Usa pd.read_csv para leer el archivo CSV
+                self.df = pd.read_csv(self.archivo_csv)
             except Exception as e:
                 print(f"Error al cargar el archivo CSV: {e}")
         else:
             print(
-                f"No se encontró el archivo CSV: {self.archivo_csv}")  # Ajusta el mensaje para indicar que es un archivo CSV
+                f"No se encontró el archivo CSV: {self.archivo_csv}")
 
     def mostrar_datos(self):
         if self.df is not None:
@@ -58,5 +59,3 @@ class AnalisisEstadistico:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
-
-
