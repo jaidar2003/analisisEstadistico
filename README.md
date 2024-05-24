@@ -27,6 +27,6 @@ Juan Manuel Aidar
 
 Dino Meschini
 
-Sofia Soler .
+Sofia Soler 
 
 Diego Xu Huang
