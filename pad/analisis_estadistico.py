@@ -140,6 +140,23 @@ class AnalisisEstadistico:
             print("Primero carga los datos usando el método cargar_datos().")
 
 
-    
+    # ANALISIS EXPLORATORIO / CONSTRUCCIONES GRAFICAS
+            
+    # De sectores
+            
+    # De barras
+            
+    # poligono de frecuencias
+        
+    # histogramas
+            
+    # ojiva
+            
+    # dispersograma
+            
+    # grafica de caja
+            
+    # noc que mas
 
+            
     
