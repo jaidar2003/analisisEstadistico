@@ -1,6 +1,9 @@
 import os
 import pandas as pd
 import scipy.stats as stats
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import linregress
 
 
 class AnalisisEstadistico:
@@ -100,3 +103,43 @@ class AnalisisEstadistico:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
+
+    def analisis_regresion_y_correlacion(self):
+        if self.df is not None:
+            if 'math_score' in self.df.columns and 'reading_score' in self.df.columns:
+                df = self.df[['math_score', 'reading_score']].dropna()
+
+                df['math_score'] = pd.to_numeric(df['math_score'], errors='coerce')
+                df['reading_score'] = pd.to_numeric(df['reading_score'], errors='coerce')
+                df = df.dropna(subset=['math_score', 'reading_score'])
+
+                # Realizar la regresión lineal
+                slope, intercept, r_value, p_value, std_err = linregress(df['math_score'], df['reading_score'])
+
+                # Crear la línea de regresión
+                df['regression_line'] = slope * df['math_score'] + intercept
+
+                sns.set(style="whitegrid")
+
+                # show grafic
+                plt.figure(figsize=(10, 6))
+                sns.scatterplot(x='math_score', y='reading_score', data=df, label='Datos reales')
+                plt.plot(df['math_score'], df['regression_line'], color='red', label=f'Regresión lineal: y={slope:.2f}x+{intercept:.2f}')
+                plt.xlabel('Puntuación en Matemáticas')
+                plt.ylabel('Puntuación en Lectura')
+                plt.title('Regresión y Correlación entre Puntuaciones de Matemáticas y Lectura')
+                plt.legend()
+                plt.show()
+
+                correlation = df.corr().loc['math_score', 'reading_score']
+                print(f"Correlación: {correlation}")
+                print(f"Coeficiente de determinación (R^2): {r_value**2:.2f}\n")
+            else:
+                print("Las columnas 'math_score' y 'reading_score' no existen en el DataFrame.")
+        else:
+            print("Primero carga los datos usando el método cargar_datos().")
+
+
+    
+
+    
