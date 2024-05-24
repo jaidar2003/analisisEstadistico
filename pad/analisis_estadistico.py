@@ -33,10 +33,12 @@ class AnalisisEstadistico:
     def estadisticas_columna(self, columna):
         if self.df is not None:
             if columna in self.df.columns:
-                print("Media:", self.df[columna].mean())
-                print("Desviación estándar:", self.df[columna].std())
-                print("Mínimo:", self.df[columna].min())
-                print("Máximo:", self.df[columna].max())
+                stats_list = []
+                stats_list.append(["Media", self.df[columna].mean()])
+                stats_list.append(["Desviación estándar", self.df[columna].std()])
+                stats_list.append(["Mínimo", self.df[columna].min()])
+                stats_list.append(["Máximo", self.df[columna].max()])
+                return stats_list
             else:
                 print("La columna especificada no existe en el DataFrame.")
         else:
