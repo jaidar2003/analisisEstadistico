@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import scipy.stats as stats
 
+
 class AnalisisEstadistico:
     def __init__(self, archivo_csv):
         self.archivo_csv = archivo_csv
@@ -33,18 +34,16 @@ class AnalisisEstadistico:
     def estadisticas_columna(self, columna):
         if self.df is not None:
             if columna in self.df.columns:
-                stats_list = []
-                stats_list.append(["Media", self.df[columna].mean()])
-                stats_list.append(["Desviación estándar", self.df[columna].std()])
-                stats_list.append(["Mínimo", self.df[columna].min()])
-                stats_list.append(["Máximo", self.df[columna].max()])
+                stats_list = [["Media", self.df[columna].mean()], ["Desviación estándar", self.df[columna].std()],
+                              ["Mínimo", self.df[columna].min()], ["Máximo", self.df[columna].max()]]
                 return stats_list
             else:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
-    def resumen_estadistico_para_grupo(self, grupo):
+    @staticmethod
+    def resumen_estadistico_para_grupo(grupo):
         if grupo is not None:
             print(grupo.describe())
         else:
@@ -66,7 +65,6 @@ class AnalisisEstadistico:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
-
 
     def prueba_hipotesis_media(self, columna, mu):
         if self.df is not None:
