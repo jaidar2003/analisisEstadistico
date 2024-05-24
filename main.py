@@ -169,7 +169,12 @@ def mostrar_resultados(analisis):
     if bondad_ajuste_math:
         print_formatted("Prueba de bondad de ajuste para la normalidad en math_score", dict(bondad_ajuste_math))
 
-    print_formatted("Análisis de regresión y correlación entre math_score y reading_score", "")
+
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print("Análisis de regresión y correlación entre math_score y reading_score")
+    print("\n")
+
     analisis.analisis_regresion_y_correlacion()
 
 if __name__ == "__main__":
