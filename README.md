@@ -4,12 +4,13 @@
 ### ESTADISTICA APLICADA II
 
 
-### About Dataset
+## Sobre el Dataset
+Planteamiento del Problema:
 
-Problem Statement:
+Este proyecto tiene como objetivo comprender cómo el desempeño de los estudiantes (calificaciones de exámenes) se ve afectado por otras variables, tales como el género, la etnia, el nivel educativo de los padres, el almuerzo y el curso de preparación para el examen.
+Contenido:
 
-This project understands how the student's performance (test scores) is affected by other variables such as Gender, Ethnicity, Parental level of education, Lunch and Test preparation course.
-Content
+Este conjunto de datos consta de las calificaciones obtenidas por los estudiantes en varias asignaturas.
 
 This data set consists of the marks secured by the students in various subjects.
 
