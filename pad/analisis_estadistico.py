@@ -113,15 +113,12 @@ class AnalisisEstadistico:
                 df['reading_score'] = pd.to_numeric(df['reading_score'], errors='coerce')
                 df = df.dropna(subset=['math_score', 'reading_score'])
 
-                # Realizar la regresión lineal
                 slope, intercept, r_value, p_value, std_err = linregress(df['math_score'], df['reading_score'])
 
-                # Crear la línea de regresión
                 df['regression_line'] = slope * df['math_score'] + intercept
 
                 sns.set(style="whitegrid")
 
-                # show grafic
                 plt.figure(figsize=(10, 6))
                 sns.scatterplot(x='math_score', y='reading_score', data=df, label='Datos reales')
                 plt.plot(df['math_score'], df['regression_line'], color='red', label=f'Regresión lineal: y={slope:.2f}x+{intercept:.2f}')
