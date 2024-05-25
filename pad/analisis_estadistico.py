@@ -135,3 +135,4 @@ class AnalisisEstadistico:
                 print("Las columnas 'math_score' y 'reading_score' no existen en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
+
