@@ -170,17 +170,39 @@ def mostrar_resultados(analisis):
         print_formatted("Prueba de bondad de ajuste para la normalidad en math_score", dict(bondad_ajuste_math))
 
 
+
+
+    # ACA VAN LOS GRAFICOS
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
-    print("Análisis de regresión y correlación entre math_score y reading_score")
-    print("\n")
+    print("Analisis exploratorios: (GRAFICOS)")
 
-    analisis.analisis_regresion_y_correlacion()
+
+    while True:
+        print("\nPresiona una tecla para ver los graficos:")
+        print("a) Mostrar el análisis de regresión y correlación")
+        print("b) Mostrar el noc")
+        print("c) Mostrar el noc")
+        print("q) Salir del programa")
+        print("e) hola programa")
+        key_pressed = input().lower()
+        if key_pressed == 'a':
+            print_formatted("Análisis de regresión y correlación entre math_score y reading_score", "")
+            analisis.analisis_regresion_y_correlacion()
+        elif key_pressed == 'b':
+            pass
+            print("pendiente...")
+        elif key_pressed == 'c':
+            pass
+            print("pendiente...")
+        elif key_pressed == 'q':
+            print("Chau")
+            break
+        else:
+            print("Opción no válida. Por favor, selecciona una opcion correcta")
+
+
 
 if __name__ == "__main__":
      main()
-
-
-
-
 
