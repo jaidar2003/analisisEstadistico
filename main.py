@@ -181,6 +181,8 @@ def mostrar_resultados(analisis):
         print("a) Mostrar el análisis de regresión y correlación")
         print("b) Mostrar el noc")
         print("c) Mostrar el noc")
+        print("b) Mostrar el noc")
+        print("c) Mostrar el noc")
         print("q) Salir del programa")
         key_pressed = input().lower()
         if key_pressed == 'a':
@@ -200,16 +202,6 @@ def mostrar_resultados(analisis):
 
 if __name__ == "__main__":
     main()
-
-#hola\
-#chau
-    
-    #holaaa
-    
-    
-
-    #hola
-
 
 
 
