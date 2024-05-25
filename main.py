@@ -198,14 +198,14 @@ def mostrar_resultados(analisis):
         else:
             print("Opción no válida. Por favor, selecciona una opcion correcta")
 
-        print("hola mundo test")
-
-
 if __name__ == "__main__":
     main()
 
 #hola\
 #chau
+    
+    #holaaa
+    
     
 
     #hola
