@@ -136,3 +136,7 @@ class AnalisisEstadistico:
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
+
+    
+
+    
