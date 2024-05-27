@@ -218,9 +218,6 @@ class AnalisisEstadistico:
             print("Primero carga los datos usando el método cargar_datos().")
 
 
-####
-
-    
 
 
 # land of hope and glory
