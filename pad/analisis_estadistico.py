@@ -220,5 +220,4 @@ class AnalisisEstadistico:
 
 
 
-# land of hope and glory
-    
+
