@@ -18,15 +18,8 @@ def realizar_analisis(archivo_excel):
     analisis = AnalisisEstadistico(archivo_excel)
     analisis.cargar_datos()
     mostrar_resultados(analisis)
-    generar_graficos(analisis)
 
-def generar_graficos(analisis):
-    analisis.generar_histograma("math_score")
-    analisis.generar_histograma("reading_score")
-    analisis.generar_histograma("writing_score")
-    analisis.generar_boxplot("math_score")
-    analisis.generar_boxplot("reading_score")
-    analisis.generar_boxplot("writing_score")
+
 
 
 def print_formatted(header, content):
@@ -181,16 +174,24 @@ def mostrar_resultados(analisis):
 
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
-    print("")
+    print("Histogramas")
     print("\n")
+
+    analisis.generar_histograma("math_score")
+    analisis.generar_histograma("reading_score")
+    analisis.generar_histograma("writing_score")
 
 
 
 
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
-    print("")
+    print("Boxplot")
     print("\n")
+
+    analisis.generar_boxplot("math_score")
+    analisis.generar_boxplot("reading_score")
+    analisis.generar_boxplot("writing_score")
 
 
 
