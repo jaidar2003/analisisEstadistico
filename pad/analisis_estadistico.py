@@ -12,15 +12,13 @@ class AnalisisEstadistico:
         self.df = None
 
     def cargar_datos(self):
-        if os.path.exists(
-                self.archivo_csv):
+        if os.path.exists(self.archivo_csv):
             try:
                 self.df = pd.read_csv(self.archivo_csv)
             except Exception as e:
                 print(f"Error al cargar el archivo CSV: {e}")
         else:
-            print(
-                f"No se encontró el archivo CSV: {self.archivo_csv}")
+            print(f"No se encontró el archivo CSV: {self.archivo_csv}")
 
     def mostrar_datos(self):
         if self.df is not None:
@@ -64,6 +62,12 @@ class AnalisisEstadistico:
                     print("No se rechaza la hipótesis nula (los datos parecen seguir una distribución normal).")
                 else:
                     print("Se rechaza la hipótesis nula (los datos no siguen una distribución normal).")
+
+                # Generar Q-Q plot
+                plt.figure(figsize=(10, 6))
+                stats.probplot(datos, dist="norm", plot=plt)
+                plt.title(f'Q-Q plot de {columna}')
+                plt.show()
             else:
                 print("La columna especificada no existe en el DataFrame.")
         else:
@@ -121,7 +125,8 @@ class AnalisisEstadistico:
 
                 plt.figure(figsize=(10, 6))
                 sns.scatterplot(x='math_score', y='reading_score', data=df, label='Datos reales')
-                plt.plot(df['math_score'], df['regression_line'], color='red', label=f'Regresión lineal: y={slope:.2f}x+{intercept:.2f}')
+                plt.plot(df['math_score'], df['regression_line'], color='red',
+                         label=f'Regresión lineal: y={slope:.2f}x+{intercept:.2f}')
                 plt.xlabel('Puntuación en Matemáticas')
                 plt.ylabel('Puntuación en Lectura')
                 plt.title('Regresión y Correlación entre Puntuaciones de Matemáticas y Lectura')
@@ -130,15 +135,35 @@ class AnalisisEstadistico:
 
                 correlation = df.corr().loc['math_score', 'reading_score']
                 print(f"Correlación: {correlation}")
-                print(f"Coeficiente de determinación (R^2): {r_value**2:.2f}\n")
+                print(f"Coeficiente de determinación (R^2): {r_value ** 2:.2f}\n")
             else:
                 print("Las columnas 'math_score' y 'reading_score' no existen en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
+    def generar_histograma(self, columna):
+        if self.df is not None:
+            if columna in self.df.columns:
+                plt.figure(figsize=(10, 6))
+                sns.histplot(self.df[columna], kde=True)
+                plt.title(f'Histograma de {columna}')
+                plt.xlabel(columna)
+                plt.ylabel('Frecuencia')
+                plt.show()
+            else:
+                print("La columna especificada no existe en el DataFrame.")
+        else:
+            print("Primero carga los datos usando el método cargar_datos().")
 
-    
-
-
-# land of hope and glory
-    
+    def generar_boxplot(self, columna):
+        if self.df is not None:
+            if columna in self.df.columns:
+                plt.figure(figsize=(10, 6))
+                sns.boxplot(x=self.df[columna])
+                plt.title(f'Gráfico de Caja y Bigotes de {columna}')
+                plt.xlabel(columna)
+                plt.show()
+            else:
+                print("La columna especificada no existe en el DataFrame.")
+        else:
+            print("Primero carga los datos usando el método cargar_datos().")

@@ -18,6 +18,15 @@ def realizar_analisis(archivo_excel):
     analisis = AnalisisEstadistico(archivo_excel)
     analisis.cargar_datos()
     mostrar_resultados(analisis)
+    generar_graficos(analisis)
+
+def generar_graficos(analisis):
+    analisis.generar_histograma("math_score")
+    analisis.generar_histograma("reading_score")
+    analisis.generar_histograma("writing_score")
+    analisis.generar_boxplot("math_score")
+    analisis.generar_boxplot("reading_score")
+    analisis.generar_boxplot("writing_score")
 
 
 def print_formatted(header, content):
@@ -170,9 +179,22 @@ def mostrar_resultados(analisis):
         print_formatted("Prueba de bondad de ajuste para la normalidad en math_score", dict(bondad_ajuste_math))
 
 
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print("")
+    print("\n")
 
 
-    # ACA VAN LOS GRAFICOS
+
+
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print("")
+    print("\n")
+
+
+
+
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
     print("Analisis exploratorios: (GRAFICOS)")
@@ -186,18 +208,23 @@ def mostrar_resultados(analisis):
         print("q) Salir del programa")
         print("e) hola programa")
         key_pressed = input().lower()
+
         if key_pressed == 'a':
             print_formatted("Análisis de regresión y correlación entre math_score y reading_score", "")
             analisis.analisis_regresion_y_correlacion()
+
         elif key_pressed == 'b':
             pass
             print("pendiente...")
+
         elif key_pressed == 'c':
             pass
             print("pendiente...")
+
         elif key_pressed == 'q':
             print("Chau")
             break
+
         else:
             print("Opción no válida. Por favor, selecciona una opcion correcta")
 
