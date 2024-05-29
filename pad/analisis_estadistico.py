@@ -9,6 +9,12 @@ class AnalisisEstadistico:
     def __init__(self, archivo_csv):
         self.archivo_csv = archivo_csv
         self.df = None
+        self.carpeta_graficos = "graficos"
+        self.crear_carpeta_graficos()
+
+    def crear_carpeta_graficos(self):
+        if not os.path.exists(self.carpeta_graficos):
+            os.makedirs(self.carpeta_graficos)
 
     def cargar_datos(self):
         if os.path.exists(self.archivo_csv):
@@ -66,7 +72,7 @@ class AnalisisEstadistico:
                 plt.figure(figsize=(10, 6))
                 stats.probplot(datos, dist="norm", plot=plt)
                 plt.title(f'Q-Q plot de {columna}')
-                plt.savefig(f'qqplot_{columna}.png')
+                plt.savefig(os.path.join(self.carpeta_graficos, f'qqplot_{columna}.png'))
                 plt.close()
             else:
                 print("La columna especificada no existe en el DataFrame.")
@@ -131,7 +137,7 @@ class AnalisisEstadistico:
                 plt.ylabel('Puntuación en Lectura')
                 plt.title('Regresión y Correlación entre Puntuaciones de Matemáticas y Lectura')
                 plt.legend()
-                plt.savefig('regresion_correlacion.png')
+                plt.savefig(os.path.join(self.carpeta_graficos, 'regresion_correlacion.png'))
                 plt.close()
 
                 correlation = df.corr().loc['math_score', 'reading_score']
@@ -150,7 +156,7 @@ class AnalisisEstadistico:
                 plt.title(f'Histograma de {columna}')
                 plt.xlabel(columna)
                 plt.ylabel('Frecuencia')
-                plt.savefig(f'histograma_{columna}.png')
+                plt.savefig(os.path.join(self.carpeta_graficos, f'histograma_{columna}.png'))
                 plt.close()
             else:
                 print("La columna especificada no existe en el DataFrame.")
@@ -164,13 +170,12 @@ class AnalisisEstadistico:
                 sns.boxplot(x=self.df[columna])
                 plt.title(f'Gráfico de Caja y Bigotes de {columna}')
                 plt.xlabel(columna)
-                plt.savefig(f'boxplot_{columna}.png')
+                plt.savefig(os.path.join(self.carpeta_graficos, f'boxplot_{columna}.png'))
                 plt.close()
             else:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
-
 
 if __name__ == "__main__":
     analisis = AnalisisEstadistico("path_to_your_csv.csv")
