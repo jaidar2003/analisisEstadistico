@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import linregress
 
-
 class AnalisisEstadistico:
     def __init__(self, archivo_csv):
         self.archivo_csv = archivo_csv
@@ -67,7 +66,8 @@ class AnalisisEstadistico:
                 plt.figure(figsize=(10, 6))
                 stats.probplot(datos, dist="norm", plot=plt)
                 plt.title(f'Q-Q plot de {columna}')
-                plt.show()
+                plt.savefig(f'qqplot_{columna}.png')
+                plt.close()
             else:
                 print("La columna especificada no existe en el DataFrame.")
         else:
@@ -131,7 +131,8 @@ class AnalisisEstadistico:
                 plt.ylabel('Puntuación en Lectura')
                 plt.title('Regresión y Correlación entre Puntuaciones de Matemáticas y Lectura')
                 plt.legend()
-                plt.show()
+                plt.savefig('regresion_correlacion.png')
+                plt.close()
 
                 correlation = df.corr().loc['math_score', 'reading_score']
                 print(f"Correlación: {correlation}")
@@ -149,7 +150,8 @@ class AnalisisEstadistico:
                 plt.title(f'Histograma de {columna}')
                 plt.xlabel(columna)
                 plt.ylabel('Frecuencia')
-                plt.show()
+                plt.savefig(f'histograma_{columna}.png')
+                plt.close()
             else:
                 print("La columna especificada no existe en el DataFrame.")
         else:
@@ -162,8 +164,20 @@ class AnalisisEstadistico:
                 sns.boxplot(x=self.df[columna])
                 plt.title(f'Gráfico de Caja y Bigotes de {columna}')
                 plt.xlabel(columna)
-                plt.show()
+                plt.savefig(f'boxplot_{columna}.png')
+                plt.close()
             else:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
+
+
+if __name__ == "__main__":
+    analisis = AnalisisEstadistico("path_to_your_csv.csv")
+    analisis.cargar_datos()
+    analisis.mostrar_datos()
+    analisis.resumen_estadistico()
+    analisis.prueba_normalidad("math_score")
+    analisis.generar_histograma("math_score")
+    analisis.generar_boxplot("math_score")
+    analisis.analisis_regresion_y_correlacion()
