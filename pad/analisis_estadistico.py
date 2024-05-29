@@ -167,7 +167,7 @@ class AnalisisEstadistico:
             print("Primero carga los datos usando el método cargar_datos().")
 
 
-    def anova(self, columna_dependiente, columna_independiente):
+    def anova(self, columna_dependiente, columna_independiente): # Análisis de la varianza
         if self.df is not None:
             if columna_dependiente in self.df.columns and columna_independiente in self.df.columns:
                 modelo = stats.f_oneway(*[grupo[columna_dependiente].values for nombre_grupo, grupo in self.df.groupby(columna_independiente)])
@@ -242,6 +242,7 @@ class AnalisisEstadistico:
                 print("La columna especificada no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
+
 
 if __name__ == "__main__":
     analisis = AnalisisEstadistico("path_to_your_csv.csv")

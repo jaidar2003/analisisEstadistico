@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pad.analisis_estadistico import AnalisisEstadistico
-import matplotlib.pyplot as plt  # Importación necesaria para mostrar gráficos
+import matplotlib.pyplot as plt
 
 def main():
     load_dotenv()
@@ -11,12 +11,16 @@ def main():
     if archivo_excel is None:
         print("La ruta del archivo Excel no está configurada en el archivo .env.")
     else:
-        realizar_analisis(archivo_excel)
+        analisis = realizar_analisis(archivo_excel)
+        analisis_exploratorio_graficos(analisis)
+
+
 
 def realizar_analisis(archivo_excel):
     analisis = AnalisisEstadistico(archivo_excel)
     analisis.cargar_datos()
     mostrar_resultados(analisis)
+    return analisis
 
 def print_formatted(header, content):
     print("\n---", header, "---\n")
@@ -32,6 +36,77 @@ def print_formatted(header, content):
             else:
                 print(item)
     print()
+
+def analisis_exploratorio_graficos(analisis):
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print("Analisis exploratorios: (GRAFICOS)")
+    while True:
+        print("\nPresiona una tecla para ver los graficos: ")
+        print("a) Mostrar el análisis de regresión y correlación")
+        print("b) Mostrar histograma de math_score")
+        print("c) Mostrar histograma de reading_score")
+        print("d) Mostrar histograma de writing_score")
+        print("e) Mostrar boxplot de math_score")
+        print("f) Mostrar boxplot de reading_score")
+        print("g) Mostrar boxplot de writing_score")
+        print("t) Mostar todos los graficos")
+        print("q) Salir del programa")
+        key_pressed = input().lower()
+
+        if key_pressed == 'a':
+            print_formatted("Análisis de regresión y correlación entre math_score y reading_score", "")
+            analisis.analisis_regresion_y_correlacion()
+            plt.show()
+
+        elif key_pressed == 'b':
+            print("Histograma de math_score")
+            analisis.generar_histograma("math_score")
+            plt.show()
+
+        elif key_pressed == 'c':
+            print("Histograma de reading_score")
+            analisis.generar_histograma("reading_score")
+            plt.show()
+
+        elif key_pressed == 'd':
+            print("Histograma de writing_score")
+            analisis.generar_histograma("writing_score")
+            plt.show()
+
+        elif key_pressed == 'e':
+            print("Boxplot de math_score")
+            analisis.generar_boxplot("math_score")
+            plt.show()
+
+        elif key_pressed == 'f':
+            print("Boxplot de reading_score")
+            analisis.generar_boxplot("reading_score")
+            plt.show()
+
+        elif key_pressed == 'g':
+            print("Boxplot de writing_score")
+            analisis.generar_boxplot("writing_score")
+            plt.show()
+
+        elif key_pressed == 't':
+            print("Todos los graficos estadisticos")
+            analisis.analisis_regresion_y_correlacion()
+            analisis.generar_histograma("math_score")
+            analisis.generar_histograma("reading_score")
+            analisis.generar_histograma("writing_score")
+            analisis.generar_boxplot("math_score")
+            analisis.generar_boxplot("reading_score")
+            analisis.generar_boxplot("writing_score")
+
+        elif key_pressed == 'q':
+            print("Muchas gracias")
+            break
+
+        else:
+            print("Opción no válida. Por favor, selecciona una opcion correcta")
+
+
 
 def mostrar_resultados(analisis):
     print('-------------------------------------------------------------------------------------------------------------')
@@ -137,77 +212,6 @@ def mostrar_resultados(analisis):
     bondad_ajuste_math = analisis.prueba_bondad_ajuste_normal("math_score")
     if bondad_ajuste_math:
         print_formatted("Prueba de bondad de ajuste para la normalidad en math_score", dict(bondad_ajuste_math))
-
-
-    print("\n")
-    print('-------------------------------------------------------------------------------------------------------------')
-    print("Analisis exploratorios: (GRAFICOS)")
-
-    while True:
-        print("\nPresiona una tecla para ver los graficos: ")
-        print("a) Mostrar el análisis de regresión y correlación")
-        print("b) Mostrar histograma de math_score")
-        print("c) Mostrar histograma de reading_score")
-        print("d) Mostrar histograma de writing_score")
-        print("e) Mostrar boxplot de math_score")
-        print("f) Mostrar boxplot de reading_score")
-        print("g) Mostrar boxplot de writing_score")
-        print("t) Mostar todos los graficos")
-        print("q) Salir del programa")
-        key_pressed = input().lower()
-
-        if key_pressed == 'a':
-            print_formatted("Análisis de regresión y correlación entre math_score y reading_score", "")
-            analisis.analisis_regresion_y_correlacion()
-            plt.show()
-
-        elif key_pressed == 'b':
-            print("Histograma de math_score")
-            analisis.generar_histograma("math_score")
-            plt.show()
-
-        elif key_pressed == 'c':
-            print("Histograma de reading_score")
-            analisis.generar_histograma("reading_score")
-            plt.show()
-
-        elif key_pressed == 'd':
-            print("Histograma de writing_score")
-            analisis.generar_histograma("writing_score")
-            plt.show()
-
-        elif key_pressed == 'e':
-            print("Boxplot de math_score")
-            analisis.generar_boxplot("math_score")
-            plt.show()
-
-        elif key_pressed == 'f':
-            print("Boxplot de reading_score")
-            analisis.generar_boxplot("reading_score")
-            plt.show()
-
-        elif key_pressed == 'g':
-            print("Boxplot de writing_score")
-            analisis.generar_boxplot("writing_score")
-            plt.show()
-
-        elif key_pressed == 't':
-            print("Todos los graficos estadisticos")
-            analisis.analisis_regresion_y_correlacion()
-            analisis.generar_histograma("math_score")
-            analisis.generar_histograma("reading_score")
-            analisis.generar_histograma("writing_score")
-            analisis.generar_boxplot("math_score")
-            analisis.generar_boxplot("reading_score")
-            analisis.generar_boxplot("writing_score")
-
-
-        elif key_pressed == 'q':
-            print("Muchas gracias")
-            break
-
-        else:
-            print("Opción no válida. Por favor, selecciona una opcion correcta")
 
 if __name__ == "__main__":
     main()
