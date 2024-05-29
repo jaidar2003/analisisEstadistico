@@ -166,8 +166,6 @@ class AnalisisEstadistico:
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
-    
-
 
     def anova(self, columna_dependiente, columna_independiente):
         if self.df is not None:
