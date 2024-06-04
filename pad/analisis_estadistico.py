@@ -4,6 +4,7 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import linregress
+from tabulate import tabulate
 
 class AnalisisEstadistico:
     def __init__(self, archivo_csv):
@@ -79,6 +80,8 @@ class AnalisisEstadistico:
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
+
+
     def prueba_hipotesis_media(self, columna, mu):
         if self.df is not None:
             if columna in self.df.columns:
@@ -115,7 +118,7 @@ class AnalisisEstadistico:
             print("Primero carga los datos usando el método cargar_datos().")
 
 
-
+    ###################################### falta imprimir #########################################
     def prueba_hipotesis_varianza(self, columna, varianza_hipotetica):
         if self.df is not None:
             if columna in self.df.columns:
@@ -179,6 +182,8 @@ class AnalisisEstadistico:
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
+    ###################################### falta imprimir #########################################
+
 
     def analisis_regresion_y_correlacion(self):
         if self.df is not None:
@@ -214,6 +219,8 @@ class AnalisisEstadistico:
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
+
+
     def generar_histograma(self, columna):
         if self.df is not None:
             if columna in self.df.columns:
@@ -240,6 +247,29 @@ class AnalisisEstadistico:
                 plt.close()
             else:
                 print("La columna especificada no existe en el DataFrame.")
+        else:
+            print("Primero carga los datos usando el método cargar_datos().")
+
+
+    
+    def tabla_contingencia(self, columna1, columna2):
+        if self.df is not None:
+            if columna1 in self.df.columns and columna2 in self.df.columns:
+                tabla_contingencia = pd.crosstab(self.df[columna1], self.df[columna2])
+                marginales = tabla_contingencia.sum(axis=1)
+                total = tabla_contingencia.values.sum()
+                frecuencias_condicionales = tabla_contingencia.div(marginales, axis=0)
+
+                print("Tabla de Contingencia:")
+                print(tabulate(tabla_contingencia, headers='keys', tablefmt='fancy_grid'))
+
+                print("\nMarginales:")
+                print(tabulate(pd.DataFrame(marginales), headers=['Marginales'], tablefmt='fancy_grid'))
+
+                print("\nFrecuencias Condicionales:")
+                print(tabulate(frecuencias_condicionales, headers='keys', tablefmt='fancy_grid'))
+            else:
+                print("Al menos una de las columnas especificadas no existe en el DataFrame.")
         else:
             print("Primero carga los datos usando el método cargar_datos().")
 
