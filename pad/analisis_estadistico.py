@@ -316,21 +316,20 @@ class AnalisisEstadistico:
     # analisis de varianza 
     def analisis_anova(self):
         if self.df is not None:
-            # Fórmulas para el ANOVA
+            
             formulas = {
                 "math_score": "math_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)",
                 "reading_score": "reading_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)",
                 "writing_score": "writing_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)"
             }
 
-            # Resultados del ANOVA
+         
             anova_results = {}
             for score, formula in formulas.items():
                 model = ols(formula, data=self.df).fit()
                 anova_table = sm.stats.anova_lm(model, typ=2)
                 anova_results[score] = anova_table
 
-            # Mostrar los resultados
             for score, table in anova_results.items():
                 print(f"\nANOVA para {score}:\n")
                 print(table)
