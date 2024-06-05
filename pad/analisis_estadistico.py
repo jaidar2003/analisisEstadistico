@@ -312,18 +312,15 @@ class AnalisisEstadistico:
         
 
 
-
-    # analisis de varianza 
+    # analisis varianza
     def analisis_anova(self):
         if self.df is not None:
-            
             formulas = {
                 "math_score": "math_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)",
                 "reading_score": "reading_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)",
                 "writing_score": "writing_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)"
             }
 
-         
             anova_results = {}
             for score, formula in formulas.items():
                 model = ols(formula, data=self.df).fit()
@@ -332,25 +329,9 @@ class AnalisisEstadistico:
 
             for score, table in anova_results.items():
                 print(f"\nANOVA para {score}:\n")
-                print(table)
+                print(tabulate(table, headers='keys', tablefmt='pretty'))
         else:
             print("Primero carga los datos usando el método cargar_datos().")
-
-
-    # def anova(self, columna_dependiente, columna_independiente): # Análisis de la varianza
-    #     if self.df is not None:
-    #         if columna_dependiente in self.df.columns and columna_independiente in self.df.columns:
-    #             modelo = stats.f_oneway(*[grupo[columna_dependiente].values for nombre_grupo, grupo in self.df.groupby(columna_independiente)])
-    #             print(f"Análisis de varianza (ANOVA) para '{columna_dependiente}' por '{columna_independiente}':")
-    #             print("Estadística F:", modelo.statistic)
-    #             print("Valor p:", modelo.pvalue)
-    #         else:
-    #             print("Al menos una de las columnas especificadas no existe en el DataFrame.")
-    #     else:
-    #         print("Primero carga los datos usando el método cargar_datos().")
-
-
-    
 
 
 
