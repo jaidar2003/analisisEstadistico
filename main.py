@@ -282,10 +282,23 @@ def mostrar_resultados(analisis):
     print('\033[1;33m' + "Analisis de Variacion".upper())
     print('\033[0m')
     print("\n")
-    analisis.analisis_de_variacion("gender", "math_score")
+    print("Primero analizamos cómo las variables categóricas afectan los puntajes de matemáticas, lectura y escritura. Las variables categóricas a considerar son gender, parental_level_of_education, lunch y test_preparation_course.")
+    print("\n")
+    print("Para math_score:")
+    print("H0: No hay diferencia significativa en los puntajes de matemáticas entre los grupos definidos por género, nivel educativo de los padres, almuerzo y curso de preparación para el examen.")
+    print("H1: Hay al menos una diferencia significativa en los puntajes de matemáticas entre los grupos definidos por género, nivel educativo de los padres, almuerzo y curso de preparación para el examen.")
 
+    print("\nPara reading_score:")
+    print("H0: No hay diferencia significativa en los puntajes de lectura entre los grupos definidos por género, nivel educativo de los padres, almuerzo y curso de preparación para el examen.")
+    print("H1: Hay al menos una diferencia significativa en los puntajes de lectura entre los grupos definidos por género, nivel educativo de los padres, almuerzo y curso de preparación para el examen.")
+
+    print("\nPara writing_score:")
+    print("H0: No hay diferencia significativa en los puntajes de escritura entre los grupos definidos por género, nivel educativo de los padres, almuerzo y curso de preparación para el examen.")
+    print("H1: Hay al menos una diferencia significativa en los puntajes de escritura entre los grupos definidos por género, nivel educativo de los padres, almuerzo y curso de preparación para el examen.")
+
+    analisis.analisis_anova()
     print("Intepretacion:")
-   
+    
 
 
 

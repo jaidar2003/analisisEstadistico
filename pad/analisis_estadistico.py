@@ -3,11 +3,12 @@ import pandas as pd
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 import seaborn as sns
+import statsmodels.api as sm
 from scipy.stats import linregress
 from tabulate import tabulate
 from scipy.stats import chi2_contingency
 from collections import Counter
-
+from statsmodels.formula.api import ols
 
 class AnalisisEstadistico:
     def __init__(self, archivo_csv):
@@ -313,6 +314,30 @@ class AnalisisEstadistico:
 
 
     # analisis de varianza 
+    def analisis_anova(self):
+        if self.df is not None:
+            # Fórmulas para el ANOVA
+            formulas = {
+                "math_score": "math_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)",
+                "reading_score": "reading_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)",
+                "writing_score": "writing_score ~ C(gender) + C(parental_level_of_education) + C(lunch) + C(test_preparation_course)"
+            }
+
+            # Resultados del ANOVA
+            anova_results = {}
+            for score, formula in formulas.items():
+                model = ols(formula, data=self.df).fit()
+                anova_table = sm.stats.anova_lm(model, typ=2)
+                anova_results[score] = anova_table
+
+            # Mostrar los resultados
+            for score, table in anova_results.items():
+                print(f"\nANOVA para {score}:\n")
+                print(table)
+        else:
+            print("Primero carga los datos usando el método cargar_datos().")
+
+
     # def anova(self, columna_dependiente, columna_independiente): # Análisis de la varianza
     #     if self.df is not None:
     #         if columna_dependiente in self.df.columns and columna_independiente in self.df.columns:
@@ -325,25 +350,6 @@ class AnalisisEstadistico:
     #     else:
     #         print("Primero carga los datos usando el método cargar_datos().")
 
-
-    def analisis_de_variacion(self, columna_grupo, columna_valor):
-        if self.df is not None:
-            if columna_grupo in self.df.columns and columna_valor in self.df.columns:
-                grupo_valores = {}
-                for grupo, datos in self.df.groupby(columna_grupo):
-                    grupo_valores[grupo] = datos[columna_valor]
-                f_stat, p_valor = stats.f_oneway(*grupo_valores.values())
-                print(f"Análisis de variación para '{columna_valor}' agrupado por '{columna_grupo}':")
-                print("Estadística F:", f_stat)
-                print("Valor p:", p_valor)
-                if p_valor > 0.05:
-                    print("No hay diferencias significativas entre los grupos.")
-                else:
-                    print("Hay al menos un grupo con una media significativamente diferente.")
-            else:
-                print("Las columnas especificadas no existen en el DataFrame.")
-        else:
-            print("Primero carga los datos usando el método cargar_datos().")
 
     
 
