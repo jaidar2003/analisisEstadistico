@@ -1,7 +1,9 @@
 import os
 from dotenv import load_dotenv
+import numpy as np
 from pad.analisis_estadistico import AnalisisEstadistico
 import matplotlib.pyplot as plt  # Importación necesaria para mostrar gráficos
+from scipy.stats import chi2_contingency
 
 
 
@@ -95,33 +97,27 @@ def mostrar_resultados(analisis):
     if resumen_no_comieron is not None:
         print_formatted("Estudiantes que no comieron almuerzo estándar", resumen_no_comieron.to_dict())
 
+
+
+    # -------------------------------------------------ESTIMACION DE PARAMETROS--------------------------------------------------
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
-    print('\033[1;33m' + "Prueba de normalidad para los scores de math, writing y reading".upper())
+    print('\033[1;33m' + "estimacion_parametro".upper())
     print('\033[0m')
     print("\n")
 
+    analisis.estimacion_parametros()
 
 
 
-    normalidad_math = analisis.prueba_normalidad("math_score")
-    if normalidad_math:
-        print_formatted("Prueba de normalidad para math_score", dict(normalidad_math))
-
-    print("\n")
-    normalidad_writing = analisis.prueba_normalidad("writing_score")
-    if normalidad_writing:
-        print_formatted("Prueba de normalidad para writing_score", dict(normalidad_writing))
-    print("\n")
-    normalidad_reading = analisis.prueba_normalidad("reading_score")
-    if normalidad_reading:
-        print_formatted("Prueba de normalidad para reading_score", dict(normalidad_reading))
+    # -------------------------------------------------PRUEBA DE HIPOTESIS--------------------------------------------------
+    
+    # Prueba de hipótesis para la media
 
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
     print('\033[1;33m' + "Prueba de hipótesis para la media".upper())
     print('\033[0m')
-    
     print("\n")
 
     hipotesis_writing = analisis.prueba_hipotesis_media("writing_score", 70)
@@ -136,6 +132,43 @@ def mostrar_resultados(analisis):
     hipotesis_reading = analisis.prueba_hipotesis_media("reading_score", 70)
     if hipotesis_reading:
         print_formatted("Prueba de hipotesis para le media de reading_score", dict(hipotesis_reading))
+
+
+
+    #Prueba de hipótesis para la varianza
+
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print('\033[1;33m' + "Prueba de hipótesis para la varianza".upper())
+    print('\033[0m')
+    print("\n")
+
+    prueba_varianza_math = analisis.prueba_hipotesis_varianza("math_score", 100)
+    if prueba_varianza_math:
+        print_formatted("Prueba de hipótesis para la varianza de math_score", dict(prueba_varianza_math))
+
+    print('\n')
+    prueba_varianza_reading = analisis.prueba_hipotesis_varianza("reading_score", 100)
+    if prueba_varianza_reading:
+        print_formatted("Prueba de hipótesis para la varianza de reading_score", dict(prueba_varianza_reading))
+    print('\n')
+    prueba_varianza_writing = analisis.prueba_hipotesis_varianza("writing_score", 100)
+    if prueba_varianza_writing:
+        print_formatted("Prueba de hipótesis para la varianza de writing_score", dict(prueba_varianza_writing))
+
+
+
+    #Prueba de hipótesis para la proporcion 
+
+   
+
+
+
+
+
+
+
+    # Prueba de bondad de ajuste para la normalidad
 
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
@@ -156,6 +189,34 @@ def mostrar_resultados(analisis):
     if bondad_ajuste_math:
         print_formatted("Prueba de bondad de ajuste para la normalidad en math_score", dict(bondad_ajuste_math))
 
+
+
+    
+    
+    # prueba_hipotesis_media_alumnos_almuerzo
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print('\033[1;33m' + "prueba hipotesis media alumnos almuerzo".upper())
+    print('\033[0m')
+    print("\n")
+
+    analisis.prueba_hipotesis_media_alumnos_almuerzo()
+
+
+
+
+    # prueba_hipotesis_genero_educacion_padres
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print('\033[1;33m' + "prueba_hipotesis_genero_educacion_padres".upper())
+    print('\033[0m')
+    print("\n")
+    analisis.prueba_hipotesis_genero_educacion_padres()
+
+   
+
+
+    # tabla de contingencia
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
     print('\033[1;33m' + "TABLA DE CONTINGENCIA PARA GÉNERO Y NIVEL EDUCATIVO DE LOS PADRES")
@@ -163,7 +224,74 @@ def mostrar_resultados(analisis):
     print("\n")
     analisis.tabla_contingencia("gender", "parental_level_of_education")  # Llamada a la función tabla_contingencia
 
-  
+
+
+    # prueba de independencia(tabla contingencia)
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print('\033[1;33m' + "Prueba de Independencia".upper())
+    print('\033[0m')
+    print("\n")
+    observed = np.array([[116, 63, 94, 36, 118, 91],
+                     [106, 55, 102, 23, 108, 88]])
+    chi2, p, dof, expected = chi2_contingency(observed)
+    print("Estadístico de chi-cuadrado:", chi2)
+    print("Valor p:", p)
+    print("Grados de libertad:", dof) # por ser tabla de 2x6, hay 5 grados de libertad
+    print("Valores esperados:")
+    #Valores esperados: Son los valores esperados bajo la hipótesis nula de independencia entre las variables.
+    #Estos valores se calculan a partir de la tabla de contingencia observada y se utilizan para comparar con los valores observados. 
+    print(expected)
+    print("\n")
+    print("Interpretacion: El valor p es muy alto, no hay suficiente evidencia para rechazar la hipótesis nula de independencia entre género y nivel educativo (nivel sig = 0.05)")
+
+
+
+
+
+    # Prueba de Bondad
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print('\033[1;33m' + "Prueba de normalidad para los scores de math, writing y reading (Prueba de Bondad)".upper())
+    print('\033[0m')
+    print("\n")
+    print("H0 (Hipótesis Nula): Las puntuaciones de matemáticas, lectura y escritura siguen una distribución normal.")
+    print("H1 (Hipótesis Alternativa): Las puntuaciones de matemáticas, lectura y escritura no siguen una distribución normal.")
+    print("Si el valor p es menor que 0.05, rechazamos la hipótesis nula y concluimos que los datos no siguen una distribución normal")
+    print("\n")
+
+
+    normalidad_math = analisis.prueba_normalidad("math_score")
+    if normalidad_math:
+        print_formatted("Prueba de normalidad para math_score", dict(normalidad_math))
+
+    print("\n")
+    normalidad_writing = analisis.prueba_normalidad("writing_score")
+    if normalidad_writing:
+        print_formatted("Prueba de normalidad para writing_score", dict(normalidad_writing))
+    print("\n")
+    normalidad_reading = analisis.prueba_normalidad("reading_score")
+    if normalidad_reading:
+        print_formatted("Prueba de normalidad para reading_score", dict(normalidad_reading))
+
+
+
+    #analisis de variacion
+    print("\n")
+    print('-------------------------------------------------------------------------------------------------------------')
+    print('\033[1;33m' + "Analisis de Variacion".upper())
+    print('\033[0m')
+    print("\n")
+    analisis.analisis_de_variacion("gender", "math_score")
+
+    print("Intepretacion:")
+   
+
+
+
+
+
+    # graficos
     print("\n")
     print('-------------------------------------------------------------------------------------------------------------')
     print('\033[1;33m' + "Analisis exploratorios: (GRAFICOS)".upper())
